@@ -15,19 +15,29 @@ void print_list(struct song_node *node) {
   }
 }
 
+// returns pointer to new front node
 struct song_node *insert_front(struct song_node *node, char *n, char *a) {
   struct song_node *front = (struct song_node *) malloc(sizeof(struct song_node));
   strncpy(front->name, n, 256);
   strncpy(front->artist, a, 256);
-  return front;
-}
-/*
-struct node *insert_i(struct song_node *node, char *n, char *a, int i) {
-  struct node *front = (struct song_node *) malloc(sizeof(struct node));
-  front->i = i;
   front->next = node;
   return front;
 }
+
+// returns pointer to new front node
+struct song_node *insert_order(struct song_node *node, char *n, char *a) {
+  struct song_node *new = (struct song_node *) malloc(sizeof(struct song_node));
+  strncpy(new->name, n, 256);
+  strncpy(new->artist, a, 256);
+  
+  while (strcmp(node->name, new->name) > 0) {
+    
+  }
+  
+  return front;
+}
+
+/*
 
 struct node *free_list(struct song_node *node) {
   struct node *first = node;
@@ -46,6 +56,9 @@ void main(){
   print_list(list);
 
   list = insert_front(list, "name", "artist");
+  print_list(list);
+  
+  list = insert_front(list, "name2", "artist2");
   print_list(list);
   
   
