@@ -24,24 +24,43 @@ struct song_node *insert_front(struct song_node *node, char *n, char *a) {
   return front;
 }
 
-// returns pointer to new front node
+// returns pointer to new node
 struct song_node *insert_order(struct song_node *node, char *n, char *a) {
-  struct song_node *new = (struct song_node *) malloc(sizeof(struct song_node));
-  strncpy(new->name, n, 256);
-  strncpy(new->artist, a, 256);
-  
-  while (strcmp(node->name, new->name) > 0) {
-    
+  if (node == NULL) {
+    return insert_front(node, n, a);
   }
-  
-  return front;
+
+  else {
+    struct song_node *front = node;
+    struct song_node *new = (struct song_node *) malloc(sizeof(struct song_node));
+    strncpy(new->name, n, 256);
+    strncpy(new->artist, a, 256);
+    // printf("new: %s, %s\n", new->name, new->artist);
+    printf("%d\n", strcmp(node->name, new->name));
+    while (strcmp(node->name, new->name) != 1) {
+      node = node->next;
+    }
+    new->next = node->next;
+    node->next = new;
+    return front;
+  }
 }
 
-/*
+struct song_node *find_song(struct song_node *node, char *n, char *a) {
+  while (node != NULL) {
+    if (strcmp(node->name, n) == 0 && strcmp(node->artist, a) == 0) {
+      return node;
+    }
+    else {
+      node = node->next;
+    }
+  }
+  return 0;
+}
 
 struct node *free_list(struct song_node *node) {
-  struct node *first = node;
-  struct node *next;
+  struct song_node *first = node;
+  struct song_node *next;
   while (node) {
     next = node->next;
     free(node);
@@ -49,17 +68,23 @@ struct node *free_list(struct song_node *node) {
   }
   return NULL; 
 }
-*/
 
-void main(){
+
+void main() {
   struct song_node *list = NULL;
   print_list(list);
 
-  list = insert_front(list, "name", "artist");
-  print_list(list);
   
-  list = insert_front(list, "name2", "artist2");
+
+  list = insert_front(list, "c", "artist3");
   print_list(list);
-  
+
+  list = insert_front(list, "b", "artist2");
+  print_list(list);
+
+  list = insert_front(list, "a", "artist1");
+  print_list(list);
+
+  printf("pointer: %p\n", find_song(list, "b", "artist2"));
   
 }
