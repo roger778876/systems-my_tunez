@@ -104,7 +104,31 @@ struct song_node *random_song(struct song_node *node) {
   return node;
 }
 
-
+struct song_node *remove_song(struct song_node *node, char *n, char *a) {
+  if (find_song(node, n, a)) {
+    struct song_node *prev = NULL;
+    struct song_node *curr = node;
+    
+    while (curr) {
+      if (strcmp(curr->name, n) == 0 && strcmp(curr->artist, a) == 0) {
+        if (prev == NULL) {
+          struct song_node *front = curr->next;
+          free(curr);
+          return front;
+        }
+        else {
+          prev->next = curr->next;
+          free(curr);
+        }
+      }
+      else {
+        prev = curr;
+        curr = curr->next;
+      }
+    }
+  }
+  return node;
+}
 
 struct node *free_list(struct song_node *node) {
   struct song_node *first = node;
@@ -147,4 +171,7 @@ void main() {
   printf("len: %d\n", list_len(list));
 
   printf("random: %s by %s\n", random_song(list)->name, random_song(list)->artist);
+  
+  list = remove_song(list, "b", "artist2");
+  print_list(list);
 }
