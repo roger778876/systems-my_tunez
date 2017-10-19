@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <time.h>
 
 struct song_node { 
@@ -17,7 +18,7 @@ void print_list(struct song_node *node) {
 }
 
 // returns pointer to new front node
-struct song_node *insert_front(struct song_node *node, char *n, char *a) {
+struct song_node *insert_front(struct song_node *node, char n[], char a[]) {
   struct song_node *front = (struct song_node *) malloc(sizeof(struct song_node));
   strncpy(front->name, n, 256);
   strncpy(front->artist, a, 256);
@@ -26,7 +27,7 @@ struct song_node *insert_front(struct song_node *node, char *n, char *a) {
 }
 
 // returns pointer to new node
-struct song_node *insert_order(struct song_node *node, char *n, char *a) {
+struct song_node *insert_order(struct song_node *node, char n[], char a[]) {
   if (!node) {
     return insert_front(node, n, a);
   }
@@ -60,7 +61,7 @@ struct song_node *insert_order(struct song_node *node, char *n, char *a) {
   }
 }
 
-struct song_node *find_song(struct song_node *node, char *n, char *a) {
+struct song_node *find_song(struct song_node *node, char n[], char a[]) {
   while (node != NULL) {
     if (strcmp(node->name, n) == 0 && strcmp(node->artist, a) == 0) {
       return node;
@@ -72,7 +73,7 @@ struct song_node *find_song(struct song_node *node, char *n, char *a) {
   return 0;
 }
 
-struct song_node *find_artist(struct song_node *node, char *a) {
+struct song_node *find_artist(struct song_node *node, char a[]) {
   while (node != NULL) {
     if (strcmp(node->artist, a) == 0) {
       return node;
@@ -104,7 +105,7 @@ struct song_node *random_song(struct song_node *node) {
   return node;
 }
 
-struct song_node *remove_song(struct song_node *node, char *n, char *a) {
+struct song_node *remove_song(struct song_node *node, char n[], char a[]) {
   struct song_node *loc = find_song(node, n, a);
   if (loc) {
     struct song_node *prev = NULL;
