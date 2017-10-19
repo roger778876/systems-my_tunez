@@ -36,7 +36,7 @@ struct song_node *insert_order(struct song_node *node, char *n, char *a) {
     struct song_node *curr = node;
 
     while (curr) {
-      if (strcmp(curr->name, n) > 0) {
+      if (strcmp(curr->artist, a) > 0) {
         if (prev == NULL) {
           return insert_front(curr, n, a);
         }
@@ -105,20 +105,22 @@ struct song_node *random_song(struct song_node *node) {
 }
 
 struct song_node *remove_song(struct song_node *node, char *n, char *a) {
-  if (find_song(node, n, a)) {
+  struct song_node *loc = find_song(node, n, a);
+  if (loc) {
     struct song_node *prev = NULL;
     struct song_node *curr = node;
     
     while (curr) {
-      if (strcmp(curr->name, n) == 0 && strcmp(curr->artist, a) == 0) {
+      if (curr == loc) {
         if (prev == NULL) {
-          struct song_node *front = curr->next;
+          struct song_node *output = curr->next;
           free(curr);
-          return front;
+          return output;
         }
         else {
           prev->next = curr->next;
           free(curr);
+          return node;
         }
       }
       else {
@@ -141,24 +143,24 @@ struct node *free_list(struct song_node *node) {
   return NULL; 
 }
 
-
+/*
 void main() {
   struct song_node *list = NULL;
   print_list(list);
 
-  list = insert_order(list, "c", "artist3");
+  list = insert_order(list, "c", "artist5");
   print_list(list);
   printf("\n");
 
-  list = insert_order(list, "a", "artist1");
+  list = insert_order(list, "a", "artist4");
   print_list(list);
   printf("\n");
 
-  list = insert_order(list, "b", "artist2");
+  list = insert_order(list, "b", "artist1");
   print_list(list);
   printf("\n");
 
-  list = insert_order(list, "d", "artist4");
+  list = insert_order(list, "d", "artist2");
   print_list(list);
   printf("\n");
 
@@ -174,4 +176,13 @@ void main() {
   
   list = remove_song(list, "b", "artist2");
   print_list(list);
+
+  list = remove_song(list, "a", "artist1");
+  print_list(list);
+
+  list = remove_song(list, "d", "artist4");
+  print_list(list);
+
+  list = free_list(list);
 }
+*/
