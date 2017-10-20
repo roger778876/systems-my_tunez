@@ -3,12 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <time.h>
-
-struct song_node { 
-  char name[256];
-  char artist[256];
-  struct song_node *next;
-};
+#include "linkedlist.h"
 
 void print_list(struct song_node *node) {
   while (node) {
@@ -94,10 +89,15 @@ int list_len(struct song_node *node) {
   return output;
 }
 
-struct song_node *random_song(struct song_node *node) {
-  int range = list_len(node);
+int randint(int range) {
   srand(time(NULL));
   int random = rand() % range;
+  return random;
+}
+
+struct song_node *random_song(struct song_node *node) {
+  int range = list_len(node);
+  int random = randint(range);
   while (random > 0) {
     random--;
     node = node->next;
