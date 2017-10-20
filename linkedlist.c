@@ -70,7 +70,7 @@ struct song_node *find_song(struct song_node *node, char n[], char a[]) {
       node = node->next;
     }
   }
-  return 0;
+  return NULL;
 }
 
 struct song_node *find_artist(struct song_node *node, char a[]) {
@@ -82,7 +82,7 @@ struct song_node *find_artist(struct song_node *node, char a[]) {
       node = node->next;
     }
   }
-  return 0;
+  return NULL;
 }
 
 int list_len(struct song_node *node) {
@@ -95,9 +95,9 @@ int list_len(struct song_node *node) {
 }
 
 struct song_node *random_song(struct song_node *node) {
-  int range = list_len(node) - 1;
+  int range = list_len(node);
   srand(time(NULL));
-  int random = rand() % (range + 1);
+  int random = rand() % range;
   while (random > 0) {
     random--;
     node = node->next;
@@ -133,7 +133,7 @@ struct song_node *remove_song(struct song_node *node, char n[], char a[]) {
   return node;
 }
 
-struct node *free_list(struct song_node *node) {
+struct song_node *free_list(struct song_node *node) {
   struct song_node *first = node;
   struct song_node *next;
   while (node) {
@@ -166,22 +166,20 @@ void main() {
   printf("\n");
 
   printf("pointer: %p\n", find_song(list, "b", "artist2"));
-  printf("next song: %s\n", find_song(list, "b", "artist2")->next->name);
 
   printf("pointer: %p\n", find_artist(list, "artist4"));
-  printf("next song: %s\n", find_artist(list, "artist4")->next->name);
 
   printf("len: %d\n", list_len(list));
 
   printf("random: %s by %s\n", random_song(list)->name, random_song(list)->artist);
   
-  list = remove_song(list, "b", "artist2");
+  list = remove_song(list, "b", "artist1");
   print_list(list);
 
-  list = remove_song(list, "a", "artist1");
+  list = remove_song(list, "a", "artist4");
   print_list(list);
 
-  list = remove_song(list, "d", "artist4");
+  list = remove_song(list, "d", "artist2");
   print_list(list);
 
   list = free_list(list);
