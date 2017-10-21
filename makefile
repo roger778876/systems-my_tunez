@@ -14,5 +14,5 @@ run: all
 	./my_tunez
 
 clean:
-	rm *.o
-	rm *~
+	rm -f *.o
+	rm -f *~
