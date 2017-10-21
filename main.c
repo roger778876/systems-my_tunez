@@ -4,7 +4,6 @@
 #include "linkedlist.h"
 
 int main() {
-  struct song_node *library[26] = {NULL};
   // adding songs
   char n1[] = "What Do You Do";
   char a1[] = "ASAP Ferg";

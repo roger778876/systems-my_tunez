@@ -1,3 +1,4 @@
+struct song_node *library[26];
 void convert_lower(char str[]);
 int convert_index(char str[]);
 void add_song(char n[], char a[]);
