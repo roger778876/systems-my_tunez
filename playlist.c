@@ -1,4 +1,7 @@
-#include "linkedlist.c"
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include "linkedlist.h"
 #include "playlist.h"
 
 struct song_node *library[26] = {NULL};
