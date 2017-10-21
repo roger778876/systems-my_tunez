@@ -5,7 +5,7 @@ struct song_node *search_song(char n[], char a[]);
 struct song_node *search_artist(char a[]);
 struct song_node *search_artist_r(char a[], struct song_node *start);
 void print_lib_letter(char a);
-int print_artist(char a[]);
+void print_artist(char a[]);
 void print_library();
 void print_shuffle(int count);
 void delete_song(char n[], char a[]);

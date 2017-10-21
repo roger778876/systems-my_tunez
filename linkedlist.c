@@ -5,9 +5,13 @@
 #include <time.h>
 #include "linkedlist.h"
 
+void print_node(struct song_node *node) {
+  printf("\"%s\" by %s\n", node->name, node->artist);
+}
+
 void print_list(struct song_node *node) {
   while (node) {
-    printf("\"%s\" by %s\n", node->name, node->artist);
+    print_node(node);
     node = node->next;
   }
 }
@@ -90,7 +94,7 @@ int list_len(struct song_node *node) {
 }
 
 int randint(int range) {
-  srand(time(NULL));
+  srand((unsigned) time(NULL));
   int random = rand() % range;
   return random;
 }
@@ -143,45 +147,3 @@ struct song_node *free_list(struct song_node *node) {
   }
   return NULL; 
 }
-
-/*
-void main() {
-  struct song_node *list = NULL;
-  print_list(list);
-
-  list = insert_order(list, "c", "artist5");
-  print_list(list);
-  printf("\n");
-
-  list = insert_order(list, "a", "artist4");
-  print_list(list);
-  printf("\n");
-
-  list = insert_order(list, "b", "artist1");
-  print_list(list);
-  printf("\n");
-
-  list = insert_order(list, "d", "artist2");
-  print_list(list);
-  printf("\n");
-
-  printf("pointer: %p\n", find_song(list, "b", "artist2"));
-
-  printf("pointer: %p\n", find_artist(list, "artist4"));
-
-  printf("len: %d\n", list_len(list));
-
-  printf("random: %s by %s\n", random_song(list)->name, random_song(list)->artist);
-  
-  list = remove_song(list, "b", "artist1");
-  print_list(list);
-
-  list = remove_song(list, "a", "artist4");
-  print_list(list);
-
-  list = remove_song(list, "d", "artist2");
-  print_list(list);
-
-  list = free_list(list);
-}
-*/
